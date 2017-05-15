@@ -13,4 +13,4 @@ use autoloader\Dog;
 $dog = new Dog();
 $cat = new Cat();
 
-var_dump($cat);
+echo $dog->age2;

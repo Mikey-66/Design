@@ -11,6 +11,11 @@ class Dog{
 
     public $name;
 
+    public function __construct()
+    {
+        $this->age = 19;
+    }
+
     public function wang(){
 
     }
