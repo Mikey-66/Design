@@ -14,9 +14,12 @@
  * 3】除了入口文件，其他文件里只能有一个类，不能有其他可执行代码
  */
 
+
+
 define('ROOT_DIR', dirname(__FILE__));  // 根目录 Design
 
 include_once "includer.php";
+
 
 include_once "framework/Loader.php";
 
