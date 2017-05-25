@@ -28,4 +28,5 @@ abstract class EventGenerator{
             $observer->handle( $this->context );
         }
     }
+
 }

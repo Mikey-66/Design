@@ -7,10 +7,10 @@
  */
 
 /***
- * 自动加载类
+ * 自动加载类 已废弃
  */
 
-define('APP_ROOT', dirname(__FILE__));
+define('ROOT_DIR', dirname(__FILE__));
 
 //echo APP_ROOT;exit;
 

@@ -19,4 +19,10 @@ class Dog{
     public function wang(){
 
     }
+
+//    public function __destruct()
+//    {
+//        // TODO: Implement __destruct() method.
+//        echo '<br/>bye';
+//    }
 }

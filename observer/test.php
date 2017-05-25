@@ -31,6 +31,8 @@ $params = array(
     'b' => 2,
     'c' => 3
 );
+
+$x = 19;
 header('content-type:text/html; charset=utf-8;');
 $orderEvent = new OrderPaidEvent();
 

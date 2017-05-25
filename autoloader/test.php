@@ -12,5 +12,10 @@ use autoloader\Dog;
 
 $dog = new Dog();
 $cat = new Cat();
+//$dog->__destruct();       // 测试析构方法 被调用的时机
+unset($dog);
+echo '<br/>sdsd<br/>';
 
-echo $dog->age2;
+
+
+//echo $dog->age;
