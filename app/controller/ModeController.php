@@ -6,6 +6,9 @@
  * Time: 10:16
  */
 namespace app\controller;
+use app\lib\observer\event\OrderPaidEvent;
+use app\lib\observer\handler\Logger;
+use app\lib\observer\handler\Mailer;
 use app\lib\singleton\Query;
 use app\lib\factory\Factory;
 use framework\Database;
@@ -50,6 +53,30 @@ class ModeController extends BaseController
             $db = Factory::createDatabase();
         }
     }
+
+    //观察者模式
+    public function actionT5(){
+        $event = new OrderPaidEvent();
+        $p = array(
+            'name' => 'liujie',
+            'age' =>20
+        );
+
+        // 这里可以添加很多个观察者，实现不同的业务逻辑，这样做的好处是可以解耦代码，
+        // 让我们的代码具有很强的可延展性
+
+        $event->addObserver(new Logger());
+        $event->addObserver(new Mailer());
+
+        // 设置时间环境
+        $event->setContext($p);
+
+        $event->notify();
+
+    }
+
+
+
 
 
 }
