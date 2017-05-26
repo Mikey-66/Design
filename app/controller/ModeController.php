@@ -11,8 +11,14 @@ use app\lib\observer\handler\Logger;
 use app\lib\observer\handler\Mailer;
 use app\lib\singleton\Query;
 use app\lib\factory\Factory;
+use app\lib\strategy\ManStrategy;
+use app\lib\strategy\WomanStrategy;
 use framework\Database;
 use app\lib\register\Register;
+use framework\database\Mysql;
+use framework\database\Mysqli;
+use framework\database\Pdo;
+
 
 class ModeController extends BaseController
 {
@@ -75,6 +81,40 @@ class ModeController extends BaseController
 
     }
 
+    // 适配器模式
+    /*
+     * 实现关键
+     * 【自定义类Mysql，Mysqli，Pdo 实现一个统一接口类】
+     */
+    public function actionT6(){
+        //统一化接口
+
+        $db = new Mysql();
+//        $db = new Mysqli();
+//        $db = new Pdo();
+        $db->connect('localhost', 'root', '111111', 'nn_pay');
+
+        $res = $db->query('select nns_id, nns_name from nns_pay_order limit 0,2');
+
+        $db->close();
+
+        dd($res);
+        exit;
+    }
+
+    // 策略模式 【非常重要】
+
+    public function actionT7(){
+
+        if ($_GET['sex'] =='m'){
+            $stragety = new ManStrategy();
+        }else{
+            $stragety = new WomanStrategy();
+        }
+
+        $stragety->showAd();
+        $stragety->showCate();
+    }
 
 
 

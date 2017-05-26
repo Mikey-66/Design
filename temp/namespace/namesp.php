@@ -26,6 +26,14 @@
 //echo 'begin'  . '<hr/>';
 
 namespace ns1;
+include_once "n1.php";
+include_once "n2.php";
+
+p();
+\C_2::p();
+\n1\nl_say();
+\n1\C_1::p();
+exit;
 
 function t1(){
     echo 'ns1_func';
