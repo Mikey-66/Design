@@ -9,10 +9,13 @@ namespace app\controller;
 use app\lib\observer\event\OrderPaidEvent;
 use app\lib\observer\handler\Logger;
 use app\lib\observer\handler\Mailer;
+use app\lib\prototype\Robot;
 use app\lib\singleton\Query;
 use app\lib\factory\Factory;
 use app\lib\strategy\ManStrategy;
+use app\lib\strategy\Page;
 use app\lib\strategy\WomanStrategy;
+use app\model\PayOrder;
 use framework\Database;
 use app\lib\register\Register;
 use framework\database\Mysql;
@@ -22,13 +25,14 @@ use framework\database\Pdo;
 
 class ModeController extends BaseController
 {
-    // 链式模式
+
+    // 1】链式模式
     public function actionT1(){
         $query = new Query();
         $data = $query->select()->from()->where()->limit()->order()->query();
     }
 
-    // 工厂模式
+    // 2】工厂模式
     public function actionT2(){
         // 通过工厂获取对象，而非直接new一个,这样做的好处是，一旦对象发生变化，比如类名改变，
         // 可以在工厂中对对象进行维护，而不用到处（所有直接new的地方）修改类名
@@ -38,7 +42,7 @@ class ModeController extends BaseController
         dd($db);
     }
 
-    // 单例模式
+    // 3】单例模式
     public function actionT3(){
         // 一个类只允许实例化一次，以节省资源
         // 这些对象都是同一个对象
@@ -48,7 +52,7 @@ class ModeController extends BaseController
         $db4 = Database::getInstance();
     }
 
-    // 注册树模式
+    // 4】注册树模式
     public function actionT4(){
         // 原理是 app初始化时 将需要的对象工厂方法拿到后，将其保存在一个全局可以访问的数组中，
         // 当再次需要用到这个对象时，直接从树中取，而不是通过工场去拿
@@ -60,7 +64,7 @@ class ModeController extends BaseController
         }
     }
 
-    //观察者模式
+    // 5】观察者模式
     public function actionT5(){
         $event = new OrderPaidEvent();
         $p = array(
@@ -81,12 +85,12 @@ class ModeController extends BaseController
 
     }
 
-    // 适配器模式
+    // 6】适配器模式
+    public function actionT6(){
     /*
      * 实现关键
      * 【自定义类Mysql，Mysqli，Pdo 实现一个统一接口类】
      */
-    public function actionT6(){
         //统一化接口
 
         $db = new Mysql();
@@ -102,21 +106,50 @@ class ModeController extends BaseController
         exit;
     }
 
-    // 策略模式 【非常重要】
-
+    // 7】策略模式 【框架中应用的很多，非常重要】
     public function actionT7(){
 
-        if ($_GET['sex'] =='m'){
-            $stragety = new ManStrategy();
-        }else{
-            $stragety = new WomanStrategy();
-        }
+        $sex = isset($_GET['sex']) ? $_GET['sex'] : 'm';
+        $stragety = $sex == 'm' ? new ManStrategy() : new WomanStrategy();
 
-        $stragety->showAd();
-        $stragety->showCate();
+        $page = new Page();
+        $page->setStrategy($stragety);
+        $page->index();
     }
 
+    // 8】数据对象映射模式
+    public function actionT8()
+    {
+        $payOrder = new PayOrder('4201610291239152626');
+        //dd($payOrder);
+        echo $payOrder->nns_money . '<br/>';
+        echo $payOrder->nns_id . '<br/>';
+        echo $payOrder->nns_name . '<br/>';
+    }
+
+    // 9】原型模式
+    public function actionT9()
+    {
+        // 当一个对象实例化之后需要进行初始化，初始化比较费资源时，
+        // 可以克隆一个已经初始化好的对象
+        // 每次调用init方法很费资源
+
+//        $robot1 = new Robot();
+//        $robot1->init();
+//
+//        $robot2 = new Robot();
+//        $robot2->init();
+
+        $prototype = new Robot();
+        $prototype->init();
+
+        $robot1 = clone $prototype;
+        $robot2 = clone $prototype;
+
+        dd($robot1);
+        dd($robot2);
 
 
+    }
 
 }
