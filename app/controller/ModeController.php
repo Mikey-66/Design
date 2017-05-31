@@ -6,6 +6,12 @@
  * Time: 10:16
  */
 namespace app\controller;
+use app\lib\decorator\Color;
+use app\lib\decorator\Milk;
+use app\lib\decorator\MyFoo;
+use app\lib\decorator\Foo;
+use app\lib\decorator\Size;
+use app\lib\decorator\Write;
 use app\lib\observer\event\OrderPaidEvent;
 use app\lib\observer\handler\Logger;
 use app\lib\observer\handler\Mailer;
@@ -150,6 +156,30 @@ class ModeController extends BaseController
         dd($robot2);
 
 
+    }
+
+    // 10】装饰器模式 (一)
+    public function actionT10()
+    {
+        $writer = new Write();
+        $writer->addDecorator(new Color('blue'));
+        $writer->addDecorator(new Size('30'));
+        $writer->w();
+    }
+
+    // 10】装饰器模式 (二)
+    public function actionT11()
+    {
+        $foo = new Foo();
+        $myFoo = new MyFoo($foo);
+        $value = $myFoo->cost();
+        dd($value);
+    }
+
+    // 10】 装饰器模式（三）
+    public function actionT12 ()
+    {
+        $milk = new Milk();
     }
 
 }
