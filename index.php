@@ -25,28 +25,17 @@ include_once "framework/Loader.php";
 
 spl_autoload_register('\\framework\\Loader::loadfile');
 
-// 在这里可以初始化一些全局都有用的对象（组件），例如数据库连接，日志，请求
+// 读取配置 生成应用实例------------>
+// (在这里可以初始化一些全局都有用的对象（组件），例如数据库连接，日志，请求，注册到实例树上)
+// 初始化系统组件
+// 根据配置觉得实例化应用组件
 
-// 以下代码 用于后台注册树模式测试
-$db = \app\lib\factory\Factory::createDatabase();
-\app\lib\register\Register::set('db', $db);
+$configs = array(
+    'db' => [
+        'class' => '',
+    ],
+);
 
-// 没有路由参数时指定默认路由
-if (!isset($_REQUEST['r'])){
-    $c = "\\app\\controller\\DefaultController";
-    $a = "actionIndex";
-}else{
-    $r = explode('/', $_REQUEST['r']);
-    $a = 'action' . ucfirst($r[1]);
-    $n = "\\app\\controller";
-    $c = $n . '\\' . ucfirst($r[0]) . 'Controller';
-}
+$app = \framework\core\App::instance($configs)->run();
 
-$c_instance = new $c;
-
-if (!method_exists($c_instance, $a)){
-    die('method not exist');
-}else{
-    call_user_func(array($c_instance, $a));
-}
 

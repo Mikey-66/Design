@@ -12,10 +12,12 @@ use app\lib\decorator\MyFoo;
 use app\lib\decorator\Foo;
 use app\lib\decorator\Size;
 use app\lib\decorator\Write;
+use app\lib\iterator\Order;
 use app\lib\observer\event\OrderPaidEvent;
 use app\lib\observer\handler\Logger;
 use app\lib\observer\handler\Mailer;
 use app\lib\prototype\Robot;
+use app\lib\proxy\OrderProxy;
 use app\lib\singleton\Query;
 use app\lib\factory\Factory;
 use app\lib\strategy\ManStrategy;
@@ -180,6 +182,40 @@ class ModeController extends BaseController
     public function actionT12 ()
     {
         $milk = new Milk();
+    }
+
+    // 11】 迭代器模式
+    public function actionT13()
+    {
+        // 实现了迭代器 可以遍历一个对象
+        // 可以将数组赋值给一个对象的属性，然后该对象实现迭代器，这样可以让该对象成为数据的载体
+
+        $data = new Order();
+
+        dd($data);exit;
+
+        foreach ($data as $item){
+            dd($item);
+        }
+
+
+    }
+
+    // 12】 代理模式
+    public function actionT14()
+    {
+//        $db = new Mysqli();
+//        $db->connect('localhost', 'root', 111111, 'nn_pay');
+//        $data = $db->query("select * from nns_pay_order where nns_id = '4201610291239152626'");
+//        $db->close();
+//
+//        dd($data);exit;
+
+        $proxy = new OrderProxy();
+        $order = $proxy->getOrder('4201610291239152626');
+        $orders = $proxy->getOrders(['4201610291239152626', '4201611012027263593']);
+        dd($order);
+        exit;
     }
 
 }

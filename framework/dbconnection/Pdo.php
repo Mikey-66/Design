@@ -2,27 +2,33 @@
 /**
  * Created by PhpStorm.
  * User: Jie Liu
- * Date: 2017/5/26
- * Time: 10:42
+ * Date: 2017/6/1
+ * Time: 15:09
  */
 
-namespace framework\database;
+namespace framework\dbconnection;
 
-class Pdo implements Database
+use framework\database\DbCommand;
+use framework\dbconnection\DbConnection;
+
+class Pdo implements DbConnection
 {
+
+    public $className = __CLASS__;
+
     protected $conn;
 
     public function connect($hostname, $username, $passwd, $dbname)
     {
         $dsn = "mysql:hostname={$hostname};dbname={$dbname}";
 
-//        echo $dsn;exit;
-
         $pdo = new \PDO($dsn, $username, $passwd);
 
         $pdo->exec("SET NAMES 'utf8'");
 
-        return $this->conn = $pdo;
+        $this->conn = $pdo;
+
+        return $this;
     }
 
     public function query($sql)
@@ -34,18 +40,16 @@ class Pdo implements Database
             die("SQL exec fail<br/>" . $errorInfo[2]);
         }
 
-        $data = [];
-        while($row = $res->fetch(\PDO::FETCH_ASSOC)){
-            $data[] = $row;
-        }
+        return $res;
+    }
 
-        return $data;
-        // TODO: Implement query() method.
+    public function createCommand($sql = null)
+    {
+        return new DbCommand($this, $sql);
     }
 
     public function close()
     {
-        // TODO: Implement close() method.
         unset($this->conn);
     }
 }
