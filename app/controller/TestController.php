@@ -9,6 +9,8 @@ namespace app\controller;
 
 use autoloader\Dog;
 use autoloader\animal\Cat;
+use framework\core\App;
+use framework\SqlBuilder;
 
 class TestController extends BaseController
 {
@@ -57,7 +59,69 @@ class TestController extends BaseController
     }
 
 
+    public function actionT4()
+    {
+//        $app = App::instance();
+//        dd($app);
+//        $db_master = App::get('db_master');
+//        dd($db_master);
+        $sqlBuilder = SqlBuilder::Query();
+//        dd($sqlBuilder);exit;
+        $sqlBuilder ->from('nns_user u')
+                    ->leftJoin('nns_device d', 'u.nns_id = d.nns_user_id')
+                    ->leftJoin('nns_user_extends ue', 'u.nns_id = ue.nns_user_id')
+//                    ->select('u.nns_name, u.nns_password, d.nns_id')
+//                    ->where("u.nns_name = '13002555713'")
+//                    ->where("u.nns_login_time is not null", 'or')
+//                    ->orWhere("u.nns_age > 18")
+//                      ->andWhere("u.nns_sex = 'male' AND ( u.nns_age > 18 AND u.nns_state = 1 )");
+//                    ->where("u.nns_name = '13001808043'")
+//                    ->offset(12)
+                    ->limit(1)
+                    ->orderBy('u.nns_id DESC');
 
+
+        dd($sqlBuilder);
+        dd($sqlBuilder->getSql());
+        exit;
+    }
+
+
+    // 加密、解密
+    public function actionT5()
+    {
+        $str = '880229sd';
+        $str_encode = email_encode($str);
+
+        dd($str_encode);
+
+        $str_decode = email_decode($str_encode, 'starcor');
+
+        dd($str_decode);
+
+        var_dump($str_decode);
+
+        // 单向哈希函数   将任意长度输入转化为固定长度的输出，常见的函数有md5，sha1
+
+        echo '<hr/>';
+        echo 'md5 hash:';
+        dd(md5('sdasdjasjdaskdjjasd'));
+
+        echo '<hr/>';
+        echo 'sha1 hash:';
+        dd(sha1('sdasdjasjdaskdjjasd'));
+
+    }
+
+    public function actionT6()
+    {
+        $range = range(1,20);
+        dd($range);
+
+        shuffle($range);
+
+        dd($range);
+    }
 
 
 

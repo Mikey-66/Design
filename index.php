@@ -30,12 +30,12 @@ spl_autoload_register('\\framework\\Loader::loadfile');
 // 初始化系统组件
 // 根据配置觉得实例化应用组件
 
-$configs = array(
-    'db' => [
-        'class' => '',
-    ],
-);
+//$app = \framework\core\App::instance($configs)->run();  // 使用ioc容器之前的写法
 
-$app = \framework\core\App::instance($configs)->run();
+$config = new \framework\configure\Config('global');
+(new \framework\core\Lap($config))->run();
+
+
+
 
 

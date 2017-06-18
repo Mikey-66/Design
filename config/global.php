@@ -23,5 +23,18 @@ return [
             'username' => 'root',
             'passwd' => 111111
         ],
-    ]
+    ],
+
+    'db' => [
+        'hostname' => 'localhost',
+        'username' => 'root',
+        'passwd' => 111111,
+        'dbname' => 'nn_pay'
+    ],
+
+    'components' => [
+        'db' => [
+            'className' => '',
+        ]
+    ],
 ];

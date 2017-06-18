@@ -24,12 +24,13 @@ class AppBase
 //        dd($dbConfig);exit;
         $dbConfigMaster = $dbConfig['db_master'];
         $dbConfigSlave = $dbConfig['db_slave'][0];
-        $dbConnection = new Pdo();
-        $conn_master = $dbConnection->connect($dbConfigMaster['hostname'], $dbConfigMaster['username'], $dbConfigMaster['passwd'], 'nn_pay');
-        $conn_salve = $dbConnection->connect($dbConfigSlave['hostname'], $dbConfigSlave['username'], $dbConfigSlave['passwd'], 'nn_pay');
 
-        self::set('db_master', $conn_master);
-        self::set('db_slave', $conn_salve);
+//        $dbConnection = new Pdo();
+//        $conn_master = $dbConnection->connect($dbConfigMaster['hostname'], $dbConfigMaster['username'], $dbConfigMaster['passwd'], 'nn_pay');
+//        $conn_salve = $dbConnection->connect($dbConfigSlave['hostname'], $dbConfigSlave['username'], $dbConfigSlave['passwd'], 'nn_pay');
+//
+//        self::set('db_master', $conn_master);
+//        self::set('db_slave', $conn_salve);
     }
 
     public static function instance($configs = array())
