@@ -7,6 +7,8 @@
  */
 namespace app\controller;
 
+use app\lib\sign\BaseSign;
+use app\lib\sign\XjSign;
 use autoloader\Dog;
 use autoloader\animal\Cat;
 use framework\core\App;
@@ -20,8 +22,10 @@ class TestController extends BaseController
         $dog = new Dog();
         $cat = new Cat();
 
-        dd($params);
-        dd($dog);
+        var_dump($cat);
+        var_dump('sdsdsd');
+        var_dump(['name' => 'liujie', 'age' => 20]);
+        var_dump(20, true);
     }
 
 
@@ -121,6 +125,36 @@ class TestController extends BaseController
         shuffle($range);
 
         dd($range);
+
+    }
+
+
+    public function actionT7()
+    {
+//        $str = "瀵规柟鏄惁";
+//
+//        $str = iconv('UTF-8', 'GBK//IGNORE', $str);
+//        echo $str;
+//        exit;
+        dd(PHP_OS);
+        exit;
+        $filename = "对方是否.text";
+        file_put_contents(iconv('UTF-8', 'GBK//IGNORE', $filename), '山东师范');
+        exit('ok');
+    }
+
+    public function actionT8()
+    {
+        $baseSign = new BaseSign();
+        $baseSign->setSignObject(new XjSign());
+
+        if (!$baseSign->verifySign()){
+            echo '签名验证失败';
+            exit;
+        }else{
+            // 验证成功
+            // 继续后续逻辑
+        }
     }
 
 

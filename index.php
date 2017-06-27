@@ -13,7 +13,7 @@
  * 2】类名的首字母大写
  * 3】除了入口文件，其他文件里只能有一个类，不能有其他可执行代码
  */
-
+//phpinfo();exit;
 
 
 define('ROOT_DIR', dirname(__FILE__));  // 根目录 Design
