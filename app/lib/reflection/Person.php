@@ -26,6 +26,18 @@ class Person
     const FEMALE = 2;
     const SECRET = 0;
 
+    public function __construct($name="", $age="", $gender="")
+    {
+        if (!empty($name)){
+            $this->name = $name;
+        }
+        if (!empty($age)){
+            $this->age = $age;
+        }
+        if (!empty($gender)){
+            $this->gender = $gender;
+        }
+    }
 
     public function getName()
     {
@@ -40,9 +52,14 @@ class Person
     /**
      * say hello
      */
-    public function sayHello($c, $a= 1, $b=2)
+    public function sayHello($c, $a= 'sdds', $b=2)
     {
-        echo 'hello reflection';
+        echo 'hello reflection ' . $c;
+    }
+
+    protected function openDoor()
+    {
+        echo "open the door";
     }
 
 
