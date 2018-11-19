@@ -32,8 +32,11 @@ spl_autoload_register('\\framework\\Loader::loadfile');
 
 //$app = \framework\core\App::instance($configs)->run();  // 使用ioc容器之前的写法
 
+$x =1;
 $config = new \framework\configure\Config('global');
 (new \framework\core\Lap($config))->run();
+
+//var_dump($x);
 
 
 

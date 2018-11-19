@@ -157,7 +157,161 @@ class TestController extends BaseController
         }
     }
 
+    public function actionT9(){
+        echo 'sleeping...';
+        sleep(20);
+        echo '<br/>';
+        die('end');
+    }
 
+    public function actionT10()
+    {
+        $res = setcookie('myname', 'liujie', 0);
+        var_dump($res);
+    }
+
+    public function actionT11()
+    {
+        var_dump($_COOKIE);
+    }
+
+    public function actionT12()
+    {
+        $res = setcookie('myname', false, time() - 3600, '/');
+        var_dump($res);
+        // 这里打印cookie还是会有 myname这个cookie的信息，因为php设置cookie不是即时生效的，因为php无法直接操作cookie，
+        // 只能通过下达知道给浏览器，通过浏览器来操作cookie
+    }
+
+
+    public function actionT13()
+    {
+        header('P3P: CP="CURa ADMa DEVa PSAo PSDo OUR BUS UNI PUR INT DEM STA PRE COM NAV OTC NOI DSP COR"');
+        $res = setcookie('P3P2', 'cross site2', time() + 3600, '/', '.phpgo.com');
+        var_dump($res);
+    }
+
+    public function actionT14()
+    {
+        var_dump($_COOKIE);
+    }
+
+    public function actionT15()
+    {
+        $a = session_name();
+        $b = session_id();
+        var_dump($a, $b);
+    }
+
+    public function actionT16()
+    {
+        // bmh3hjldjbgaqmvjur3d5atpv0
+        //$path = session_save_path();
+        //$conf = ini_get("session.save_path");
+//        session_start();
+        //$conf = get_cfg_var("session.save_path");
+        //var_dump($path);
+        session_start();
+        var_dump(session_id());
+        setcookie(session_name(), session_id(), time()+60, '/');
+        session_cache_expire();
+        $_SESSION['myname'] = 'liujie';
+        $_SESSION['age'] = '27';
+        var_dump($_SESSION);
+        var_dump($_COOKIE);
+    }
+
+    public function actionT17()
+    {
+        session_start();
+        var_dump($_SESSION);
+        var_dump($_COOKIE);
+    }
+
+
+    public function actionT18()
+    {
+        $arr=[
+            array(
+                'name'=>'小坏龙',
+                'age'=>28
+            ),
+            array(
+                'name'=>'小坏龙2',
+                'age'=>14
+            ),
+            array(
+                'name'=>'小坏龙3',
+                'age'=>59
+            ),
+            array(
+                'name'=>'小坏龙4',
+                'age'=>23
+            ),
+            array(
+                'name'=>'小坏龙5',
+                'age'=>23
+            ),
+            array(
+                'name'=>'小坏龙6',
+                'age'=>21
+            ),
+        ];
+
+//        $arr = array_column($arr,'age');
+        var_dump($arr);
+        array_multisort(array_column($arr,'age'),SORT_DESC,$arr);
+        var_dump($arr);
+    }
+
+    public function actionT19()
+    {
+
+    }
+
+    public function actionT20()
+    {
+
+
+    }
+
+
+    public function actionT21()
+    {
+        $x = null;
+        $y = array('name' => 'liujie', 'age' => 30);
+
+        $x += $y;
+
+        var_dump($x);exit;
+    }
+
+    public function actionT22()
+    {
+        // pcntl test
+        echo 'pcntl test' . PHP_EOL;
+
+          $i = 0;
+        while ($i != 5){
+            $pid = pcntl_fork();
+        if ($pid == -1){
+         die('cant fork');
+        }elseif ($pid == 0){
+         echo 'child process,pid:' . getmypid() . PHP_EOL;
+        return;
+        }else{
+            $i++;
+         echo 'parent process loop time:' . $i . PHP_EOL;
+        }
+        }
+    }
+
+    public function actionT23()
+    {
+        $x = 9;
+        var_dump(sqrt($x));
+        var_dump('dfdf221');
+    }
 
 
 }

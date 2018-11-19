@@ -42,11 +42,12 @@ class IocController extends BaseController
     {
         $container = new Container();
         $container->bind('Superman', function($container, $options){
-            $className = current($options);
-            unset($options['className']);
-            $op[] = $options;
-            $x = $container->make($className, $op);
-            return new Superman($x);
+//            $className = current($options);
+//            unset($options['className']);
+            $className = array_shift($options);
+//            $op[] = $options;
+//            $x = $container->make($className, $op);
+            return new Superman($container->make($className, array($options)));
         });
 
         $container->bind('XPower', function ($container, $options){

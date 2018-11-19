@@ -102,8 +102,8 @@ class ModeController extends BaseController
         //统一化接口
 
         $db = new Mysql();
-//        $db = new Mysqli();
-//        $db = new Pdo();
+        $db = new Mysqli();
+        $db = new Pdo();
         $db->connect('localhost', 'root', '111111', 'nn_pay');
 
         $res = $db->query('select nns_id, nns_name from nns_pay_order limit 0,2');

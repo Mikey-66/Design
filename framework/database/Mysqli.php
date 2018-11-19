@@ -10,7 +10,6 @@ namespace framework\database;
 
 class Mysqli implements Database
 {
-
     protected $conn;
 
     public function connect($hostname, $username, $passwd, $dbname)
