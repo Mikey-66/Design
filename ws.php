@@ -50,7 +50,8 @@ if ($response === false){
 
 curl_close($ch);
 
-die('ok');
+// git 协同工作测试
+die();
 
 
 
