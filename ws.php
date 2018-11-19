@@ -50,7 +50,7 @@ if ($response === false){
 
 curl_close($ch);
 
-die();
+die('ok');
 
 
 
